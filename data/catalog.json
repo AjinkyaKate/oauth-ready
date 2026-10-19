@@ -1,0 +1,590 @@
+{
+ "source": "https://docs.composio.dev/toolkits/managed-auth (accessed 2026-10-20)",
+ "apps": [
+  {
+   "name": "Airtable",
+   "slug": "airtable",
+   "managed_oauth": true
+  },
+  {
+   "name": "Asana",
+   "slug": "asana",
+   "managed_oauth": true
+  },
+  {
+   "name": "Attio",
+   "slug": "attio",
+   "managed_oauth": true
+  },
+  {
+   "name": "Basecamp",
+   "slug": "basecamp",
+   "managed_oauth": true
+  },
+  {
+   "name": "Bitbucket",
+   "slug": "bitbucket",
+   "managed_oauth": true
+  },
+  {
+   "name": "Box",
+   "slug": "box",
+   "managed_oauth": true
+  },
+  {
+   "name": "Calendly",
+   "slug": "calendly",
+   "managed_oauth": true
+  },
+  {
+   "name": "Canva",
+   "slug": "canva",
+   "managed_oauth": true
+  },
+  {
+   "name": "ClickUp",
+   "slug": "clickup",
+   "managed_oauth": true
+  },
+  {
+   "name": "Confluence",
+   "slug": "confluence",
+   "managed_oauth": true
+  },
+  {
+   "name": "Contentful",
+   "slug": "contentful",
+   "managed_oauth": true
+  },
+  {
+   "name": "Discord",
+   "slug": "discord",
+   "managed_oauth": true
+  },
+  {
+   "name": "Dropbox",
+   "slug": "dropbox",
+   "managed_oauth": true
+  },
+  {
+   "name": "Dynamics 365",
+   "slug": "dynamics-365",
+   "managed_oauth": true
+  },
+  {
+   "name": "Eventbrite",
+   "slug": "eventbrite",
+   "managed_oauth": true
+  },
+  {
+   "name": "Excel",
+   "slug": "excel",
+   "managed_oauth": true
+  },
+  {
+   "name": "Facebook",
+   "slug": "facebook",
+   "managed_oauth": true
+  },
+  {
+   "name": "Fathom",
+   "slug": "fathom",
+   "managed_oauth": true
+  },
+  {
+   "name": "Figma",
+   "slug": "figma",
+   "managed_oauth": true
+  },
+  {
+   "name": "FreshBooks",
+   "slug": "freshbooks",
+   "managed_oauth": true
+  },
+  {
+   "name": "GitHub",
+   "slug": "github",
+   "managed_oauth": true
+  },
+  {
+   "name": "GitLab",
+   "slug": "gitlab",
+   "managed_oauth": true
+  },
+  {
+   "name": "Gmail",
+   "slug": "gmail",
+   "managed_oauth": true
+  },
+  {
+   "name": "Gong",
+   "slug": "gong",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Ads",
+   "slug": "google-ads",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Analytics",
+   "slug": "google-analytics",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google BigQuery",
+   "slug": "google-bigquery",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Calendar",
+   "slug": "google-calendar",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Docs",
+   "slug": "google-docs",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Drive",
+   "slug": "google-drive",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Meet",
+   "slug": "google-meet",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Search Console",
+   "slug": "google-search-console",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Sheets",
+   "slug": "google-sheets",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Slides",
+   "slug": "google-slides",
+   "managed_oauth": true
+  },
+  {
+   "name": "Google Tasks",
+   "slug": "google-tasks",
+   "managed_oauth": true
+  },
+  {
+   "name": "Gorgias",
+   "slug": "gorgias",
+   "managed_oauth": true
+  },
+  {
+   "name": "Greenhouse",
+   "slug": "greenhouse",
+   "managed_oauth": true
+  },
+  {
+   "name": "Gumroad",
+   "slug": "gumroad",
+   "managed_oauth": true
+  },
+  {
+   "name": "Harvest",
+   "slug": "harvest",
+   "managed_oauth": true
+  },
+  {
+   "name": "HubSpot",
+   "slug": "hubspot",
+   "managed_oauth": true
+  },
+  {
+   "name": "Instagram",
+   "slug": "instagram",
+   "managed_oauth": true
+  },
+  {
+   "name": "Intercom",
+   "slug": "intercom",
+   "managed_oauth": true
+  },
+  {
+   "name": "Jira",
+   "slug": "jira",
+   "managed_oauth": true
+  },
+  {
+   "name": "Linear",
+   "slug": "linear",
+   "managed_oauth": true
+  },
+  {
+   "name": "LinkedIn",
+   "slug": "linkedin",
+   "managed_oauth": true
+  },
+  {
+   "name": "Mailchimp",
+   "slug": "mailchimp",
+   "managed_oauth": true
+  },
+  {
+   "name": "Microsoft Teams",
+   "slug": "microsoft-teams",
+   "managed_oauth": true
+  },
+  {
+   "name": "Miro",
+   "slug": "miro",
+   "managed_oauth": true
+  },
+  {
+   "name": "Monday",
+   "slug": "monday",
+   "managed_oauth": true
+  },
+  {
+   "name": "Mural",
+   "slug": "mural",
+   "managed_oauth": true
+  },
+  {
+   "name": "Notion",
+   "slug": "notion",
+   "managed_oauth": true
+  },
+  {
+   "name": "OneDrive",
+   "slug": "onedrive",
+   "managed_oauth": true
+  },
+  {
+   "name": "Outlook",
+   "slug": "outlook",
+   "managed_oauth": true
+  },
+  {
+   "name": "PagerDuty",
+   "slug": "pagerduty",
+   "managed_oauth": true
+  },
+  {
+   "name": "Pinterest",
+   "slug": "pinterest",
+   "managed_oauth": true
+  },
+  {
+   "name": "QuickBooks",
+   "slug": "quickbooks",
+   "managed_oauth": true
+  },
+  {
+   "name": "Reddit",
+   "slug": "reddit",
+   "managed_oauth": true
+  },
+  {
+   "name": "Salesforce",
+   "slug": "salesforce",
+   "managed_oauth": true
+  },
+  {
+   "name": "Sentry",
+   "slug": "sentry",
+   "managed_oauth": true
+  },
+  {
+   "name": "SharePoint",
+   "slug": "sharepoint",
+   "managed_oauth": true
+  },
+  {
+   "name": "Slack",
+   "slug": "slack",
+   "managed_oauth": true
+  },
+  {
+   "name": "Square",
+   "slug": "square",
+   "managed_oauth": true
+  },
+  {
+   "name": "Stripe",
+   "slug": "stripe",
+   "managed_oauth": true
+  },
+  {
+   "name": "Supabase",
+   "slug": "supabase",
+   "managed_oauth": true
+  },
+  {
+   "name": "Todoist",
+   "slug": "todoist",
+   "managed_oauth": true
+  },
+  {
+   "name": "Trello",
+   "slug": "trello",
+   "managed_oauth": true
+  },
+  {
+   "name": "Twitch",
+   "slug": "twitch",
+   "managed_oauth": true
+  },
+  {
+   "name": "Typeform",
+   "slug": "typeform",
+   "managed_oauth": true
+  },
+  {
+   "name": "Webex",
+   "slug": "webex",
+   "managed_oauth": true
+  },
+  {
+   "name": "WhatsApp",
+   "slug": "whatsapp",
+   "managed_oauth": true
+  },
+  {
+   "name": "Wrike",
+   "slug": "wrike",
+   "managed_oauth": true
+  },
+  {
+   "name": "YouTube",
+   "slug": "youtube",
+   "managed_oauth": true
+  },
+  {
+   "name": "Zendesk",
+   "slug": "zendesk",
+   "managed_oauth": true
+  },
+  {
+   "name": "Zoho",
+   "slug": "zoho",
+   "managed_oauth": true
+  },
+  {
+   "name": "Zoom",
+   "slug": "zoom",
+   "managed_oauth": true
+  },
+  {
+   "name": "BambooHR",
+   "slug": "bamboohr",
+   "managed_oauth": false
+  },
+  {
+   "name": "Brex",
+   "slug": "brex",
+   "managed_oauth": false
+  },
+  {
+   "name": "Buffer",
+   "slug": "buffer",
+   "managed_oauth": false
+  },
+  {
+   "name": "Clover",
+   "slug": "clover",
+   "managed_oauth": false
+  },
+  {
+   "name": "Constant Contact",
+   "slug": "constant-contact",
+   "managed_oauth": false
+  },
+  {
+   "name": "Datadog",
+   "slug": "datadog",
+   "managed_oauth": false
+  },
+  {
+   "name": "DocuSign",
+   "slug": "docusign",
+   "managed_oauth": false
+  },
+  {
+   "name": "Dropbox Sign",
+   "slug": "dropbox-sign",
+   "managed_oauth": false
+  },
+  {
+   "name": "Egnyte",
+   "slug": "egnyte",
+   "managed_oauth": false
+  },
+  {
+   "name": "GetResponse",
+   "slug": "getresponse",
+   "managed_oauth": false
+  },
+  {
+   "name": "Google Chat",
+   "slug": "google-chat",
+   "managed_oauth": false
+  },
+  {
+   "name": "Google Forms",
+   "slug": "google-forms",
+   "managed_oauth": false
+  },
+  {
+   "name": "Gusto",
+   "slug": "gusto",
+   "managed_oauth": false
+  },
+  {
+   "name": "Help Scout",
+   "slug": "help-scout",
+   "managed_oauth": false
+  },
+  {
+   "name": "Klaviyo",
+   "slug": "klaviyo",
+   "managed_oauth": false
+  },
+  {
+   "name": "LaunchDarkly",
+   "slug": "launchdarkly",
+   "managed_oauth": false
+  },
+  {
+   "name": "Lever",
+   "slug": "lever",
+   "managed_oauth": false
+  },
+  {
+   "name": "LinkedIn Ads",
+   "slug": "linkedin-ads",
+   "managed_oauth": false
+  },
+  {
+   "name": "Meta Ads",
+   "slug": "meta-ads",
+   "managed_oauth": false
+  },
+  {
+   "name": "Microsoft Power BI",
+   "slug": "microsoft-power-bi",
+   "managed_oauth": false
+  },
+  {
+   "name": "Microsoft To Do",
+   "slug": "microsoft-to-do",
+   "managed_oauth": false
+  },
+  {
+   "name": "Netsuite",
+   "slug": "netsuite",
+   "managed_oauth": false
+  },
+  {
+   "name": "PayPal",
+   "slug": "paypal",
+   "managed_oauth": false
+  },
+  {
+   "name": "Personio",
+   "slug": "personio",
+   "managed_oauth": false
+  },
+  {
+   "name": "Pipedrive",
+   "slug": "pipedrive",
+   "managed_oauth": false
+  },
+  {
+   "name": "Ramp",
+   "slug": "ramp",
+   "managed_oauth": false
+  },
+  {
+   "name": "Razorpay",
+   "slug": "razorpay",
+   "managed_oauth": false
+  },
+  {
+   "name": "ServiceNow",
+   "slug": "servicenow",
+   "managed_oauth": false
+  },
+  {
+   "name": "Shopify",
+   "slug": "shopify",
+   "managed_oauth": false
+  },
+  {
+   "name": "Snowflake",
+   "slug": "snowflake",
+   "managed_oauth": false
+  },
+  {
+   "name": "Spotify",
+   "slug": "spotify",
+   "managed_oauth": false
+  },
+  {
+   "name": "SurveyMonkey",
+   "slug": "surveymonkey",
+   "managed_oauth": false
+  },
+  {
+   "name": "TikTok",
+   "slug": "tiktok",
+   "managed_oauth": false
+  },
+  {
+   "name": "X (Twitter)",
+   "slug": "twitter",
+   "managed_oauth": false
+  },
+  {
+   "name": "Vercel",
+   "slug": "vercel",
+   "managed_oauth": false
+  },
+  {
+   "name": "Vimeo",
+   "slug": "vimeo",
+   "managed_oauth": false
+  },
+  {
+   "name": "Webflow",
+   "slug": "webflow",
+   "managed_oauth": false
+  },
+  {
+   "name": "Wix",
+   "slug": "wix",
+   "managed_oauth": false
+  },
+  {
+   "name": "WordPress.com",
+   "slug": "wordpresscom",
+   "managed_oauth": false
+  },
+  {
+   "name": "Workday",
+   "slug": "workday",
+   "managed_oauth": false
+  },
+  {
+   "name": "Xero",
+   "slug": "xero",
+   "managed_oauth": false
+  },
+  {
+   "name": "Zoominfo",
+   "slug": "zoominfo",
+   "managed_oauth": false
+  }
+ ]
+}
