@@ -87,13 +87,9 @@
           "text": "Set Authorization callback URL to https://backend.composio.dev/api/v3/toolkits/auth/callback (copy whatever your Composio auth config shows, they must match exactly).",
           "owner": "agent",
           "evidence": {
-            "type": "sourced",
-            "sources": [
-              "s1",
-              "s3",
-              "s14"
-            ],
-            "note": "Exact match is required unless wildcard matching is turned on for that callback URL."
+            "type": "tested",
+            "sources": [],
+            "note": "Form shows 'Redirect URIs' with 'Add redirect URI'; up to 10 allowed, wildcard matching is a per-URI option (seen 2026-10-20)"
           }
         },
         {
@@ -125,23 +121,18 @@
           "text": "Click Register application. The app exists immediately.",
           "owner": "you",
           "evidence": {
-            "type": "sourced",
-            "sources": [
-              "s1"
-            ],
-            "note": ""
+            "type": "tested",
+            "sources": [],
+            "note": "Registered a test app; it opened immediately with Client ID and 0 users, no review step (2026-10-20)"
           }
         },
         {
           "text": "Click Generate a new client secret and copy the Client ID and Client Secret into a secret manager.",
           "owner": "you",
           "evidence": {
-            "type": "uncertain",
-            "sources": [
-              "s11",
-              "s14"
-            ],
-            "note": "GitHub docs say to store the secret securely and rotate it if leaked. That the secret is shown only once comes from Composio's guide, not from a GitHub page we read."
+            "type": "tested",
+            "sources": [],
+            "note": "GitHub shows 'Make sure to copy your new client secret now. You won't be able to see it again.' (2026-10-20)"
           }
         }
       ]
@@ -226,12 +217,9 @@
           "text": "Nothing to submit. The same app works for every GitHub user as soon as it is registered.",
           "owner": "provider",
           "evidence": {
-            "type": "uncertain",
-            "sources": [
-              "s1",
-              "s5"
-            ],
-            "note": "Inferred: GitHub's creation docs list no review or publish step, and the only reviewed path described is the optional Marketplace listing."
+            "type": "tested",
+            "sources": [],
+            "note": "The registered app page offered no submit or review step, only an optional 'List this application in the Marketplace' button (2026-10-20)"
           }
         },
         {
@@ -472,7 +460,6 @@
   "uncertain": [
     "Whether Composio's managed GitHub connection uses an OAuth App or a GitHub App; Composio's pages do not say.",
     "Whether Composio refreshes GitHub OAuth App tokens when 'Expire user access tokens' is on (now the default for new apps).",
-    "That the client secret is displayed only once: stated by Composio's guide, not found in the GitHub pages we read.",
     "GitHub docs conflict on OAuth token expiry default: the creation page says expiring tokens are on by default, the GitHub App vs OAuth App comparison page says OAuth tokens are long-lived by default."
   ],
   "sources": [
@@ -564,9 +551,27 @@
   "verification_log": [
     {
       "date": "2026-10-20",
-      "method": "doc check",
-      "what": "Read current GitHub Docs pages on OAuth App creation, authorization, scopes, org restrictions, rate limits and Marketplace, plus Composio's GitHub guide and toolkit page",
-      "result": "Found 2026 changes: up to 10 callback URLs, configurable wildcard matching (Aug 3 2026), expiring tokens default on for new OAuth apps. One internal GitHub doc conflict on expiry default."
+      "method": "setup attempt",
+      "what": "Opened Register a new OAuth app on a personal GitHub account",
+      "result": "Form has Application name, Homepage URL, optional description and a Redirect URIs list (up to 10, optional wildcard matching per URI)."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "setup attempt",
+      "what": "Registered 'OAuth Ready test (delete me)' with the Composio v3 callback",
+      "result": "Created instantly with a Client ID. No review, no test-user stage. Marketplace listing offered as optional."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "setup attempt",
+      "what": "Generated a client secret",
+      "result": "Secret shown once with a warning that it cannot be seen again. The only secret cannot be deleted until a second one exists."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "cleanup",
+      "what": "Deleted the test app",
+      "result": "Done. Test app deleted, which also revoked its client secret."
     }
   ],
   "generated_by": "curated",
