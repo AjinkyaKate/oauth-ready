@@ -2,7 +2,8 @@
 
 Setup guides that tell an agent builder what it really takes to get a provider OAuth app ready on Composio: how hard it is, how long it takes (your work vs. waiting on review), what can block you, and which steps an agent can do for you. Type any app name and an agent researches it live and writes the same kind of guide.
 
-- **Live app:** _add Vercel URL_
+- **Live app:** https://oauth-ready-eight.vercel.app
+- **Source:** https://github.com/AjinkyaKate/oauth-ready
 - **Demo guides:** GitHub (easy), Slack (medium), X/Twitter (medium), Gmail (hard), Shopify (hard), Spotify (hard)
 - **Live generation:** search for any app not in the library, or click one in "Not written yet"
 
