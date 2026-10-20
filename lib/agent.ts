@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { getVercelOidcTokenSync } from "@vercel/oidc";
 import { Guide, guideJsonSchema } from "./schema";
 import catalog from "@/data/catalog.json";
+import { runGemini } from "./agent-gemini";
 
 // Live guide generation: Claude researches the provider with server-side web search + web fetch,
 // then hands back a structured guide through the `submit_guide` tool. Progress is streamed to the UI.
@@ -28,7 +29,9 @@ const gatewayToken = () => {
     return undefined;
   }
 };
-export const agentConfigured = () => direct() || Boolean(gatewayToken());
+const gemini = () => Boolean(process.env.GEMINI_API_KEY);
+// Order: Anthropic key, then Gemini free tier, then Vercel AI Gateway.
+export const agentConfigured = () => direct() || gemini() || Boolean(gatewayToken());
 const model = () => process.env.GUIDE_MODEL || (direct() ? "claude-sonnet-5-5" : "anthropic/claude-sonnet-5.5");
 const MANAGED = (catalog.apps as { name: string; managed_oauth: boolean }[])
   .filter((a) => a.managed_oauth)
@@ -64,6 +67,7 @@ const submitTool = {
 };
 
 export async function runAgent(app: string, emit: (e: AgentEvent) => void): Promise<Guide | undefined> {
+  if (!direct() && gemini()) return runGemini(app, emit, SYSTEM);
   const DIRECT = direct();
   const client = DIRECT ? new Anthropic() : new Anthropic({ apiKey: gatewayToken(), baseURL: "https://ai-gateway.vercel.sh" });
   const tools: Anthropic.Beta.BetaToolUnion[] = [

@@ -32,7 +32,9 @@ export async function generatedGuides(): Promise<Guide[]> {
   const { blobs } = await list({ prefix: "guides/" });
   const out: Guide[] = [];
   for (const b of blobs) {
-    const parsed = Guide.safeParse(await (await fetch(b.url, { cache: "no-store" })).json());
+    // Blob URLs are CDN-cached; the upload time in the query string makes a regenerated guide show up at once.
+    const fresh = `${b.url}?v=${new Date(b.uploadedAt).getTime()}`;
+    const parsed = Guide.safeParse(await (await fetch(fresh, { cache: "no-store" })).json());
     if (parsed.success) out.push(parsed.data);
   }
   return out;

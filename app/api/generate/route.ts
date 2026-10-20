@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const query = (app ?? "").trim().slice(0, 120);
   if (!query) return Response.json({ error: "Enter an app name or website." }, { status: 400 });
   if (!agentConfigured())
-    return Response.json({ error: "Live generation is not configured (set ANTHROPIC_API_KEY or AI_GATEWAY_API_KEY)." }, { status: 503 });
+    return Response.json({ error: "Live generation is not configured (set GEMINI_API_KEY, ANTHROPIC_API_KEY or AI_GATEWAY_API_KEY)." }, { status: 503 });
 
   const existing = force ? undefined : await getGuide(slugify(query));
   const encoder = new TextEncoder();
