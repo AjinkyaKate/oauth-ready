@@ -54,11 +54,9 @@
           "owner": "agent",
           "url": "https://console.cloud.google.com/projectcreate",
           "evidence": {
-            "type": "sourced",
-            "sources": [
-              "s7"
-            ],
-            "note": ""
+            "type": "tested",
+            "sources": [],
+            "note": "Created project 'oauth-ready-test' on a personal Google account in about a minute (2026-10-20)"
           }
         },
         {
@@ -78,25 +76,19 @@
           "owner": "agent",
           "url": "https://console.cloud.google.com/auth/overview",
           "evidence": {
-            "type": "sourced",
-            "sources": [
-              "s11",
-              "s8"
-            ],
-            "note": ""
+            "type": "tested",
+            "sources": [],
+            "note": "Wizard steps were App information, Audience, Contact information, Finish (agree to the API Services User Data Policy). 'Internal' was greyed out on a personal Gmail account (2026-10-20)"
           }
         },
         {
-          "text": "Create an OAuth client of type Web application and add the redirect URI https://backend.composio.dev/api/v3/toolkits/auth/callback",
+          "text": "Create an OAuth client of type Web application and add the redirect URI https://backend.composio.dev/api/v3/toolkits/auth/callback Copy the secret right away: Google says you can no longer view or download it once you close the dialog.",
           "owner": "agent",
           "url": "https://console.cloud.google.com/auth/clients",
           "evidence": {
-            "type": "sourced",
-            "sources": [
-              "s10",
-              "s11"
-            ],
-            "note": "Composio's Google guide still shows the older /api/v1/auth-apps/add URI. Composio's auth config docs say the v3 URI is current and must match the auth config exactly."
+            "type": "tested",
+            "sources": [],
+            "note": "Created a Web application client with the Composio v3 redirect URI instantly (2026-10-20)"
           }
         },
         {
@@ -126,24 +118,19 @@
           "owner": "agent",
           "url": "https://console.cloud.google.com/auth/audience",
           "evidence": {
-            "type": "sourced",
-            "sources": [
-              "s5"
-            ],
-            "note": ""
+            "type": "tested",
+            "sources": [],
+            "note": "New External app started in Testing. Audience page: 'only test users are able to access the app' (2026-10-20)"
           }
         },
         {
-          "text": "Under Data access, add the Gmail scopes you need. Pick the narrowest ones, since scope tier decides your review path",
+          "text": "Under Data access, add the Gmail scopes you need. Pick the narrowest ones, since scope tier decides your review path Scopes only appear for enabled APIs, so enable the Gmail API first or paste the scope URLs.",
           "owner": "agent",
           "url": "https://console.cloud.google.com/auth/scopes",
           "evidence": {
-            "type": "sourced",
-            "sources": [
-              "s3",
-              "s1"
-            ],
-            "note": ""
+            "type": "tested",
+            "sources": [],
+            "note": "Gmail scopes are hidden until the Gmail API is enabled or pasted manually. After pasting, gmail.send was listed under 'Your sensitive scopes' and gmail.readonly under 'Your restricted scopes' (2026-10-20)"
           }
         },
         {
@@ -436,6 +423,15 @@
           "s1"
         ]
       }
+    },
+    {
+      "text": "Copy the client secret when the client is created. Google no longer lets you view or download it after the dialog closes; you would have to create a new secret.",
+      "applies_when": "Creating the OAuth client",
+      "evidence": {
+        "type": "tested",
+        "sources": [],
+        "note": "Dialog text: 'You will no longer be able to view or download the client secret once you close this dialog.' (2026-10-20)"
+      }
     }
   ],
   "blockers": [
@@ -473,10 +469,9 @@
       "impact": "After 100 new users, nobody new can connect. The cap cannot be reset.",
       "workaround": "Verify before growth, or use Composio's managed app meanwhile",
       "evidence": {
-        "type": "sourced",
-        "sources": [
-          "s5"
-        ]
+        "type": "tested",
+        "sources": [],
+        "note": "Audience page: 'Allowed user cap prior to app verification is 100, and is counted over the entire lifetime of the app.' (2026-10-20)"
       }
     },
     {
@@ -498,10 +493,9 @@
       "impact": "Users outside your Workspace org get an org_internal error. Not usable for a SaaS with outside customers.",
       "workaround": "Use External for customer-facing products",
       "evidence": {
-        "type": "sourced",
-        "sources": [
-          "s5"
-        ]
+        "type": "tested",
+        "sources": [],
+        "note": "'Internal' could not be selected on a personal Gmail account; it needs a Workspace organization (2026-10-20)"
       }
     }
   ],
@@ -696,6 +690,42 @@
     }
   ],
   "verification_log": [
+    {
+      "date": "2026-10-20",
+      "method": "setup attempt",
+      "what": "Created a Google Cloud project and ran the Google Auth Platform setup wizard",
+      "result": "Done in a few minutes. Internal user type unavailable on a personal account; External starts in Testing."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "setup attempt",
+      "what": "Created a Web OAuth client with the Composio v3 redirect URI",
+      "result": "Created instantly. Dialog warns the secret cannot be viewed again after closing, and that access is limited to listed test users."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "setup attempt",
+      "what": "Read the Audience page",
+      "result": "Status Testing, '0 users / 100 user cap', cap counted over the app's lifetime. Publishing needs the Branding page completed first."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "setup attempt",
+      "what": "Added gmail.send and gmail.readonly under Data access",
+      "result": "Scopes only listed for enabled APIs (pasted manually). gmail.send shown as sensitive, gmail.readonly as restricted."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "setup attempt",
+      "what": "Opened the Verification Center",
+      "result": "'Verification is not required since your app is configured with a Testing publishing status.' Did not publish."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "cleanup",
+      "what": "Cleanup: shut down the test project",
+      "result": "Done. Project shut down, which disables its OAuth client (Google deletes it after 30 days)."
+    },
     {
       "date": "2026-10-20",
       "method": "doc check",
