@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { getVercelOidcTokenSync } from "@vercel/oidc";
 import { Guide, guideJsonSchema } from "./schema";
 import catalog from "@/data/catalog.json";
 
@@ -19,7 +20,14 @@ export type AgentEvent =
 // Vercel injects into deployments). The gateway speaks the Anthropic Messages API but documents only
 // web search as a server tool, so page fetching is turned off there.
 const direct = () => Boolean(process.env.ANTHROPIC_API_KEY);
-const gatewayToken = () => process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN;
+const gatewayToken = () => {
+  if (process.env.AI_GATEWAY_API_KEY) return process.env.AI_GATEWAY_API_KEY;
+  try {
+    return getVercelOidcTokenSync(); // per-request token on Vercel; from .env.local after `vercel env pull` locally
+  } catch {
+    return undefined;
+  }
+};
 export const agentConfigured = () => direct() || Boolean(gatewayToken());
 const model = () => process.env.GUIDE_MODEL || (direct() ? "claude-sonnet-5-5" : "anthropic/claude-sonnet-5.5");
 const MANAGED = (catalog.apps as { name: string; managed_oauth: boolean }[])
