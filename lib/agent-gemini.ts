@@ -39,7 +39,7 @@ async function withRetry<T>(models: string[], call: (model: string) => Promise<T
     }
   }
   throw quotaHit
-    ? new QuotaError("Today's free research quota is used up. The library guides still work; live generation resets within 24 hours.")
+    ? new QuotaError("Today's free research quota is used up. The library guides still work, and live generation resets daily at midnight Pacific time (12:30 PM IST).")
     : new Error("Gemini is overloaded right now. Please try again in a minute.");
 }
 
