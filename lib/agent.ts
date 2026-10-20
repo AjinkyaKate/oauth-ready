@@ -15,7 +15,13 @@ export type AgentEvent =
   | { type: "done"; guide: Guide }
   | { type: "error"; message: string };
 
-const MODEL = process.env.GUIDE_MODEL || "claude-sonnet-5-5";
+// Two ways to reach Claude: a direct Anthropic key, or Vercel AI Gateway (API key, or the OIDC token
+// Vercel injects into deployments). The gateway speaks the Anthropic Messages API but documents only
+// web search as a server tool, so page fetching is turned off there.
+const direct = () => Boolean(process.env.ANTHROPIC_API_KEY);
+const gatewayToken = () => process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN;
+export const agentConfigured = () => direct() || Boolean(gatewayToken());
+const model = () => process.env.GUIDE_MODEL || (direct() ? "claude-sonnet-5-5" : "anthropic/claude-sonnet-5.5");
 const MANAGED = (catalog.apps as { name: string; managed_oauth: boolean }[])
   .filter((a) => a.managed_oauth)
   .map((a) => a.name)
@@ -50,7 +56,13 @@ const submitTool = {
 };
 
 export async function runAgent(app: string, emit: (e: AgentEvent) => void): Promise<Guide | undefined> {
-  const client = new Anthropic();
+  const DIRECT = direct();
+  const client = DIRECT ? new Anthropic() : new Anthropic({ apiKey: gatewayToken(), baseURL: "https://ai-gateway.vercel.sh" });
+  const tools: Anthropic.Beta.BetaToolUnion[] = [
+    { type: "web_search_20250305", name: "web_search", max_uses: DIRECT ? 10 : 14 },
+    ...(DIRECT ? [{ type: "web_fetch_20250910", name: "web_fetch", max_uses: 12, max_content_tokens: 12000 } as const] : []),
+    submitTool,
+  ];
   const messages: Anthropic.Beta.BetaMessageParam[] = [
     { role: "user", content: `Investigate this app and write its OAuth setup guide: ${app}` },
   ];
@@ -58,15 +70,11 @@ export async function runAgent(app: string, emit: (e: AgentEvent) => void): Prom
 
   for (let turn = 0; turn < 8; turn++) {
     const stream = client.beta.messages.stream({
-      model: MODEL,
+      model: model(),
       max_tokens: 16000,
-      betas: ["web-fetch-2025-09-10"],
-      system: SYSTEM,
-      tools: [
-        { type: "web_search_20250305", name: "web_search", max_uses: 10 },
-        { type: "web_fetch_20250910", name: "web_fetch", max_uses: 12, max_content_tokens: 12000 },
-        submitTool,
-      ],
+      ...(DIRECT ? { betas: ["web-fetch-2025-09-10"] } : {}),
+      system: DIRECT ? SYSTEM : SYSTEM.replace("Fetch the key official pages instead of trusting snippets.", "Search with precise queries (site:developer.example.com style) so results come from official pages."),
+      tools,
       messages,
     });
 

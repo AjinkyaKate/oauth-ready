@@ -1,4 +1,4 @@
-import { runAgent, slugify, type AgentEvent } from "@/lib/agent";
+import { agentConfigured, runAgent, slugify, type AgentEvent } from "@/lib/agent";
 import { getGuide, saveGenerated } from "@/lib/guides";
 
 export const runtime = "nodejs";
@@ -9,8 +9,8 @@ export async function POST(req: Request) {
   const { app, force } = (await req.json().catch(() => ({}))) as { app?: string; force?: boolean };
   const query = (app ?? "").trim().slice(0, 120);
   if (!query) return Response.json({ error: "Enter an app name or website." }, { status: 400 });
-  if (!process.env.ANTHROPIC_API_KEY)
-    return Response.json({ error: "Live generation is not configured (missing ANTHROPIC_API_KEY)." }, { status: 503 });
+  if (!agentConfigured())
+    return Response.json({ error: "Live generation is not configured (set ANTHROPIC_API_KEY or AI_GATEWAY_API_KEY)." }, { status: 503 });
 
   const existing = force ? undefined : await getGuide(slugify(query));
   const encoder = new TextEncoder();
