@@ -302,7 +302,7 @@
       "title": "1 request/minute on conversations.history and conversations.replies",
       "when": "Commercially distributed unlisted (non-Marketplace) app created on or after 2025-05-29, or new installs of older unlisted apps",
       "impact": "Reading channel or thread history becomes 1 call per minute with max 15 messages per call. Agents that summarize or search channels become unusably slow.",
-      "workaround": "List on the Slack Marketplace (Tier 3 restored); keep existing installs (exempt); use event subscriptions to capture messages as they arrive instead of polling history; or have each customer build an internal app in their own workspace.",
+      "workaround": "List on the Slack Marketplace (Tier 3 restored); keep existing installs (exempt); use event subscriptions to capture messages as they arrive instead of polling history; or have each customer build an internal app in their own workspace. Not affected: Marketplace apps, internal customer-built apps, and installations that existed before May 29, 2025.",
       "evidence": {
         "type": "sourced",
         "sources": [
@@ -556,6 +556,12 @@
       "method": "doc check",
       "what": "Read Composio managed auth list, Slack toolkit page, custom auth configs and Slack custom guide",
       "result": "Slack is Composio-managed; managed app not yet Marketplace approved; redirect URI differs between Composio pages (v1 vs v3)."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "doc check",
+      "what": "Re-read Slack's May 29, 2025 rate limit changelog",
+      "result": "Confirmed 1 request/min and 15 objects for non-Marketplace commercial apps created after May 29, 2025. Added the exemptions for internal apps and existing installations."
     }
   ],
   "generated_by": "curated",

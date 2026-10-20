@@ -26,7 +26,10 @@ export default async function Home() {
           Every guide answers the same four questions: how hard it is, how long it takes (your work vs. waiting on review),
           what can block you, and which steps an agent can do for you. Each claim is marked{" "}
           <span className="font-medium text-emerald-700">Tested</span>, <span className="font-medium text-sky-700">Sourced</span>{" "}
-          or <span className="font-medium text-amber-700">Uncertain</span>.
+          or <span className="font-medium text-amber-700">Uncertain</span>.{" "}
+          <Link href="/method" className="text-indigo-700 underline-offset-2 hover:underline">
+            How we check
+          </Link>
         </p>
       </header>
 

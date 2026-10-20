@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OAuth Ready
 
-## Getting Started
+Setup guides that tell an agent builder what it really takes to get a provider OAuth app ready on Composio: how hard it is, how long it takes (your work vs. waiting on review), what can block you, and which steps an agent can do for you. Type any app name and an agent researches it live and writes the same kind of guide.
 
-First, run the development server:
+- **Live app:** _add Vercel URL_
+- **Demo guides:** GitHub (easy), Slack (medium), X/Twitter (medium), Gmail (hard), Shopify (hard), Spotify (hard)
+- **Live generation:** search for any app not in the library, or click one in "Not written yet"
+
+## The problem, as I understood it
+
+A Composio user connects their end users' apps through an auth config. For many toolkits Composio runs a **managed OAuth app**, so a developer can prototype with zero setup, but their users see "Composio" on the consent screen and share Composio's quota. For 211 OAuth toolkits there is **no managed app at all** ([Composio managed auth list](https://docs.composio.dev/toolkits/managed-auth)), so nothing connects until the developer registers their own app with the provider, and for production almost everyone wants their own app anyway.
+
+Composio already has click-by-click guides at composio.dev/auth. What they do not answer is the question a developer has *before* they start: is this an hour or two months, and what will stop me? That decision layer is what this project builds.
+
+## Key product decisions
+
+1. **Lead with the decision, not the steps.** Every guide opens with a readiness card: difficulty, your hands-on time, when you can connect your own account, when *any* user can connect, and the type of approval.
+2. **Separate "works for me" from "works for my users".** Most providers let you connect your own account within minutes. The pain is the gap to public launch. Every guide is laid out as stages that each unlock more users: Register, Works for you, Limited users (test-user caps, dev mode), Anyone can connect.
+3. **Say who does each step.** Each step is tagged *Agent can do* (research, fill forms, paste URIs), *You* (sign-in, legal identity, payment, DNS, answering reviewers) or *Provider wait*. The readiness card counts how many steps an agent can take off your plate.
+4. **Evidence on every claim.** Each claim is **Tested** (we did it and saw the result), **Sourced** (a linked source states it) or **Uncertain** (inferred, conflicting or unofficial, with the reason). Each guide ends with "What we could not confirm" and a check log.
+5. **A Composio-specific shortcut.** If a managed app exists, the guide tells you to build on it today and register your own app in parallel, then switch the auth config after approval. If not, it says plainly that nothing works until your app exists.
+6. **Shareable by default.** Every guide has a stable URL and a "Copy as Markdown" button that produces a checklist you can paste into a ticket or PR.
+7. **Focused scope.** Six hand-checked guides chosen for *different* setup challenges, plus live generation for anything else, rather than 100 shallow guides. The catalog shows the remaining ~110 apps from Composio's toolkit list, each one click away from generation.
+
+## How the agents were used
+
+- **Research agents (building the library):** one agent per app read the provider's current developer docs, review policies and pricing pages, and wrote the guide in a fixed JSON schema (`docs/guide-schema.md`). They were told to prefer official docs and to mark anything else uncertain.
+- **Setup attempts (Tested evidence):** we registered a real GitHub OAuth app with the Composio callback, then deleted it (see the GitHub guide's check log).
+- **Live generation agent:** `lib/agent.ts`. Claude uses server-side web search and web fetch, narrates each step (streamed to the page), and returns the guide through a `submit_guide` tool whose input schema is the same Zod schema as the curated guides. Output that fails the schema is sent back to the agent with the errors to fix.
+
+## What we checked, corrected and could not verify
+
+Spot check of one high-stakes claim per guide against its source (2026-10-20):
+
+| Guide | Claim | Result |
+|---|---|---|
+| Spotify | 5 users in Development mode; Extended quota only for organizations with 250k+ MAU; review up to 6 weeks | Confirmed |
+| Slack | Non-Marketplace apps created after 2025-05-29: 1 request/min, 15 objects on conversations.history/replies | Confirmed, and **added** the exemptions (internal apps, existing installs) |
+| Gmail | gmail.metadata, readonly, compose, modify are restricted; gmail.send is sensitive | Confirmed |
+| X | Pay-per-use: $0.015 post, $0.20 post with URL, 3M post reads/month cap | Confirmed |
+| GitHub | Expiring user tokens on by default; up to 10 callback URLs | Confirmed in docs **and** by a setup attempt |
+| Shopify | No new legacy custom apps after 2026-01-01 | **Corrected**: the Help Center does not state the date; it comes from a Shopify community post. Downgraded to Uncertain |
+
+Evidence across the six guides: 162 sourced, 4 tested, 21 uncertain claims, plus 33 open questions listed in the guides.
+
+Things the research surfaced that contradict common belief (all sourced in the guides):
+- Spotify's Development mode cap is now **5 users**, not 25, and extended access is closed to individuals.
+- Even `gmail.metadata` is a **restricted** scope, so it needs a paid annual CASA assessment for a public app. Workspace admins can mark an unverified app as trusted for their org, which is a real B2B workaround.
+- Slack apps that are not on the Marketplace are rate limited to **1 request per minute** on message history, and the Marketplace requires 10+ active workspaces first.
+- X has had **no free tier** for new developers since February 2026.
+- Composio's own Google and Slack setup pages still show the older v1 redirect URI; the auth config docs use `/api/v3/toolkits/auth/callback`.
+
+## Run it locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # add ANTHROPIC_API_KEY to enable live generation
+npm run dev                  # http://localhost:3000
+node --experimental-strip-types scripts/validate.mts   # schema + source-id check for curated guides
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Environment variables:
+- `ANTHROPIC_API_KEY`: required for live generation. Never committed.
+- `BLOB_READ_WRITE_TOKEN`: optional. When set (Vercel Blob), generated guides persist across deploys; locally they are saved to `data/generated/`.
+- `GUIDE_MODEL`: optional model override.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Limitations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Only GitHub has setup-attempt evidence so far; the rest is doc-sourced. Provider dashboards change often, and some steps (Google CASA, Slack Marketplace, Shopify App Store review) cannot be tested without a real product and weeks of waiting.
+- Timelines in the readiness card are estimates built from provider-stated review times plus prep work. Where providers state no time, the guide says so and marks it uncertain.
+- Live-generated guides are only as good as what the agent can fetch in a few minutes. They are labeled "Generated by agent", carry the same evidence tags, and are not reviewed by a human.
+- Composio's managed or not status comes from its public docs on 2026-10-20 and can change.
+- No accounts or editing: a wrong guide can be regenerated (`/generate?app=Name&force=1`) but not corrected in the UI.
 
-## Learn More
+## Path to 100 guides
 
-To learn more about Next.js, take a look at the following resources:
+Run the same agent in batch over the catalog, then have a second agent verify a sample of claims per guide against its sources (the same check as above). Promote a guide to "curated" only after a human reviews the uncertain items. Add scheduled re-checks, since policies like Spotify's and X's changed several times in 2026.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_Independent project for a take-home assignment. Not affiliated with Composio._

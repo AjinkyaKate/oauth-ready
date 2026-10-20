@@ -384,13 +384,13 @@
       "text": "Legacy custom apps (created in the store admin with a static admin token) can no longer be created since 2026-01-01. Existing ones keep working and are managed from the admin; new custom apps go through the Dev Dashboard.",
       "applies_when": "Background: store-admin custom apps",
       "evidence": {
-        "type": "sourced",
+        "type": "uncertain",
         "sources": [
           "s9",
           "s10",
           "s11"
         ],
-        "note": "Help Center confirms the 2026-01-01 cutoff; no official changelog entry was found."
+        "note": "The Help Center only says new custom apps are created in the Dev Dashboard. The explicit 2026-01-01 cutoff comes from a Shopify developer community post, not official docs (re-checked 2026-10-20)."
       }
     },
     {
@@ -707,6 +707,12 @@
       "method": "doc check",
       "what": "Checked legacy custom app status and review timelines in Shopify Help Center and community forums",
       "result": "Legacy creation ended 2026-01-01; review times not published, community reports 2 to 6+ weeks"
+    },
+    {
+      "date": "2026-10-20",
+      "method": "doc check",
+      "what": "Re-read help.shopify.com custom apps page for the 2026-01-01 legacy custom app cutoff",
+      "result": "Corrected: the page does not state the date, only that custom apps are made in the Dev Dashboard. Downgraded to uncertain."
     }
   ],
   "generated_by": "curated",

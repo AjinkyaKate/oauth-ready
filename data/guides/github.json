@@ -460,7 +460,7 @@
   "uncertain": [
     "Whether Composio's managed GitHub connection uses an OAuth App or a GitHub App; Composio's pages do not say.",
     "Whether Composio refreshes GitHub OAuth App tokens when 'Expire user access tokens' is on (now the default for new apps).",
-    "GitHub docs conflict on OAuth token expiry default: the creation page says expiring tokens are on by default, the GitHub App vs OAuth App comparison page says OAuth tokens are long-lived by default."
+    "GitHub's comparison page still calls OAuth tokens long-lived by default, but the creation page (re-checked) says expiry is on by default for new apps. We follow the creation page."
   ],
   "sources": [
     {
@@ -572,6 +572,12 @@
       "method": "cleanup",
       "what": "Deleted the test app",
       "result": "Done. Test app deleted, which also revoked its client secret."
+    },
+    {
+      "date": "2026-10-20",
+      "method": "doc check",
+      "what": "Re-read GitHub 'Creating an OAuth app'",
+      "result": "Confirmed 'Expire user access tokens is enabled by default' and up to 10 callback URLs."
     }
   ],
   "generated_by": "curated",

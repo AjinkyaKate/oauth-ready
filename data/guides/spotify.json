@@ -585,6 +585,12 @@
       "method": "doc check",
       "what": "Looked for August to October 2026 changelogs",
       "result": "Pages returned 404; no later changes found"
+    },
+    {
+      "date": "2026-10-20",
+      "method": "doc check",
+      "what": "Re-read Spotify quota modes page",
+      "result": "Confirmed: 5 users in Development mode; Extended quota for organizations only with 250k+ MAU; review up to six weeks."
     }
   ],
   "generated_by": "curated",

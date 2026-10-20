@@ -719,6 +719,12 @@
       "method": "doc check",
       "what": "Checked CASA lab pricing",
       "result": "Leviathan page read ($3,000 to $6,000). TAC pages returned 403, figures from search snippets only"
+    },
+    {
+      "date": "2026-10-20",
+      "method": "doc check",
+      "what": "Re-read Gmail API scopes page",
+      "result": "Confirmed: gmail.metadata, readonly, compose and modify are restricted; gmail.send is sensitive."
     }
   ],
   "generated_by": "curated",

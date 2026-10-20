@@ -570,6 +570,12 @@
       "method": "doc check",
       "what": "Read Composio Twitter toolkit page",
       "result": "Managed credentials removed Feb 2026; bring your own app required"
+    },
+    {
+      "date": "2026-10-20",
+      "method": "doc check",
+      "what": "Re-read X API pricing page",
+      "result": "Confirmed pay-per-use prices ($0.015 post, $0.20 post with URL, $0.005 post read) and the 3M post reads per month cap. No free tier is described."
     }
   ],
   "generated_by": "curated",
